@@ -27,7 +27,7 @@ export default function OpengraphImage() {
           {site.name}
         </div>
         <div style={{ fontSize: 68, fontWeight: 600, lineHeight: 1.1, maxWidth: 960 }}>
-          Acquisition systems that put qualified buyers on your calendar
+          Stop prospecting. Start selling.
         </div>
         <div style={{ fontSize: 28, color: "#9a9ca3" }}>{site.tagline}</div>
       </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { primaryNav, sectionNav } from "@/lib/site";
-import { ButtonLink } from "./button-link";
+import { ApplyCta } from "./apply-cta";
 import { Container } from "./container";
 import { Logo } from "./logo";
 
@@ -23,7 +23,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden lg:block">
-          <ButtonLink href="/apply">Apply to work with us</ButtonLink>
+          <ApplyCta />
         </div>
         <button
           type="button"
@@ -57,7 +57,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="pt-2" onClick={() => setOpen(false)}>
-              <ButtonLink href="/apply">Apply to work with us</ButtonLink>
+              <ApplyCta />
             </div>
           </Container>
         </nav>

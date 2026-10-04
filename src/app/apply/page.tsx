@@ -3,10 +3,14 @@ import { ApplicationForm } from "@/components/application-form";
 import { Container } from "@/components/container";
 import { site } from "@/lib/site";
 
+const title = "Apply";
+const description = `Start an Application with ${site.name}. Tell us who you are and we'll reply within two business days.`;
+
 export const metadata: Metadata = {
-  title: "Apply",
-  description: `Apply to work with ${site.name}. Tell us who you are and we'll reply within two business days.`,
+  title,
+  description,
   alternates: { canonical: "/apply" },
+  openGraph: { title: `${title} – ${site.name}`, description, url: "/apply" },
 };
 
 export default function ApplyPage() {

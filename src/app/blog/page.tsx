@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/container";
+import { site } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { posts } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
+const title = "Blog";
+const description = "Practical notes on outbound, deliverability, content and B2B pipeline from the Northbound team.";
+
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Practical notes on outbound, deliverability, content and B2B pipeline from the Northbound team.",
+  title,
+  description,
   alternates: { canonical: "/blog" },
+  openGraph: { title: `${title} – ${site.name}`, description, url: "/blog" },
 };
 
 export default async function BlogPage() {

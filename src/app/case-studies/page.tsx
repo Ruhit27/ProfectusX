@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/container";
+import { site } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { caseStudies } from "@/lib/content";
 
+const title = "Case Studies";
+const description = "How Northbound turned outreach and content into qualified pipeline for B2B teams (sample case studies).";
+
 export const metadata: Metadata = {
-  title: "Case Studies",
-  description: "How Northbound's acquisition systems turned outreach and content into qualified pipeline (sample case studies).",
+  title,
+  description,
   alternates: { canonical: "/case-studies" },
+  openGraph: { title: `${title} – ${site.name}`, description, url: "/case-studies" },
 };
 
 export default async function CaseStudiesPage() {

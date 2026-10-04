@@ -18,10 +18,12 @@ export const results = [
   { value: "4", label: "Channels run as one system: email, LinkedIn, content, ads" },
 ];
 
-export const testimonials = [
+export type Testimonial = { quote: string; name: string; role: string };
+
+export const testimonials: Testimonial[] = [
   {
     quote:
-      "Within a month our reps stopped prospecting and started selling. The calendar just filled up.",
+      "Within a month our reps stopped prospecting and started selling. Pipeline reviews got a lot more fun.",
     name: "Priya Raman",
     role: "VP Sales, Ledgerline",
   },

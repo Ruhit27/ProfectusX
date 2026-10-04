@@ -1,8 +1,8 @@
 export const site = {
   name: "Northbound",
-  tagline: "B2B lead generation agency",
+  tagline: "Pipeline studio for B2B teams",
   description:
-    "Northbound designs outbound and inbound acquisition systems for B2B teams, so qualified sales conversations show up on the calendar every week.",
+    "Northbound plans, writes and runs outbound, LinkedIn and content for B2B sales teams, so reps spend their time with buyers instead of building lists.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "hello@northbound.example",
 };

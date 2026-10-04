@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ButtonLink } from "@/components/button-link";
+import { ApplyCta } from "@/components/apply-cta";
 import { Container } from "@/components/container";
 import { Prose } from "@/components/prose";
 import { caseStudies } from "@/lib/content";
@@ -48,7 +48,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
         <div className="mt-16 rounded-3xl border border-border bg-surface p-8 text-center">
           <h2 className="text-2xl font-semibold">Want results like these?</h2>
           <div className="mt-5">
-            <ButtonLink href="/apply">Apply to work with us</ButtonLink>
+            <ApplyCta />
           </div>
         </div>
       </Container>
