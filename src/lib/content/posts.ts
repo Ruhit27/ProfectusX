@@ -10,6 +10,9 @@ export const postSchema = z.object({
   authorAvatar: z.string().optional(),
 });
 
+// Posts are served at /<slug> (ADR 0001), so these names are taken by other routes.
+const topLevelRoutes = ["api", "case-studies", "cs", "our-blogs", "quote", "opengraph-image", "robots.txt", "sitemap.xml"];
+
 export function createPostLibrary(directory: string) {
-  return createContentLibrary(directory, postSchema);
+  return createContentLibrary(directory, postSchema, topLevelRoutes);
 }

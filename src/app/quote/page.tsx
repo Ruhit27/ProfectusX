@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: { title: `${title} – ${site.name}`, description, url: "/quote" },
 };
 
-export default function QuotePage() {
+export default function ApplicationPage() {
   return (
     <div className="flex flex-col items-center px-4 pb-32 pt-40">
       <ApplicationForm />

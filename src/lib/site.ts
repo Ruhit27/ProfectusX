@@ -14,3 +14,12 @@ export const primaryNav = [
   { href: "/case-studies", label: "Case-Studies" },
   { href: "/our-blogs", label: "Our Blog" },
 ] as const;
+
+// Section links of the live nav, shown in the mobile menu.
+export const sectionNav = [
+  { href: "/#why", label: "About Us" },
+  { href: "/#results", label: "Results" },
+  { href: "/#process", label: "Services" },
+  { href: "/#process", label: "Process" },
+  { href: "/#faq", label: "FAQs" },
+] as const;

@@ -57,7 +57,7 @@ Open the Framer project next to `pnpm dev` and work top to bottom.
 
 | Live page / section | Where it goes |
 |---|---|
-| Brand name, contact email, footer credit | `src/lib/site.ts` (`name`, `tagline`, `description`, `email`, `credit`) |
+| Brand name, tagline, meta description, contact email, footer credit | `src/lib/site.ts` (`name`, `tagline`, `description`, `email`, `credit`). All still Northbound placeholders. `description` is also the share-image headline |
 | Logo (top left) | replace `public/logo.svg` (rendered at 48×32) |
 | Favicon | replace `src/app/favicon.ico` |
 | Hero heading, subheading, button | `hero` in `src/data/home.ts` |

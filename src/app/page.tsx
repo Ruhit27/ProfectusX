@@ -79,9 +79,16 @@ export default async function HomePage() {
 
       <section id="testimonials" className="py-20">
         <SectionTitle>{testimonials.heading}</SectionTitle>
-        <div className="mx-auto grid h-[640px] max-w-[1040px] gap-4 px-4 md:grid-cols-3">
+        <div className="mx-auto h-[640px] max-w-[1040px] px-4 md:hidden">
+          <Marquee vertical duration={60}>
+            {testimonials.items.map((t) => (
+              <TestimonialCard key={t.name} {...t} />
+            ))}
+          </Marquee>
+        </div>
+        <div className="mx-auto hidden h-[640px] max-w-[1040px] grid-cols-3 gap-4 px-4 md:grid">
           {columns.map((column, c) => (
-            <Marquee key={c} vertical duration={35 + c * 8} reverse={c === 1} className={c > 0 ? "hidden md:block" : ""}>
+            <Marquee key={c} vertical duration={35 + c * 8} reverse={c === 1}>
               {column.map((t) => (
                 <TestimonialCard key={t.name} {...t} />
               ))}

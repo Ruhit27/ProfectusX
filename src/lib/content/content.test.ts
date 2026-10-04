@@ -39,6 +39,12 @@ describe("Post library", () => {
     expect(await posts.get("../broken/missing-title")).toBeNull();
   });
 
+  it("refuses a Post whose slug collides with a top-level route", async () => {
+    const clashing = createPostLibrary(path.join(fixtures, "reserved"));
+
+    await expect(clashing.list()).rejects.toThrow(/"quote".*top-level route/);
+  });
+
   it("names the file when its header is invalid", async () => {
     const broken = createPostLibrary(path.join(fixtures, "broken"));
 

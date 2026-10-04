@@ -13,10 +13,18 @@ export interface ContentLibrary<Meta> {
 export function createContentLibrary<Schema extends z.ZodType<{ date: Date }>>(
   directory: string,
   schema: Schema,
+  reservedSlugs: readonly string[] = [],
 ): ContentLibrary<z.infer<Schema>> {
   async function slugs(): Promise<string[]> {
     const files = await readdir(directory);
-    return files.filter((f) => f.endsWith(".mdx")).map((f) => f.replace(/\.mdx$/, ""));
+    const found = files.filter((f) => f.endsWith(".mdx")).map((f) => f.replace(/\.mdx$/, ""));
+    const clash = found.find((slug) => reservedSlugs.includes(slug));
+    if (clash) {
+      throw new Error(
+        `"${clash}" in ${directory} collides with a top-level route; rename the file (docs/adr/0001-keep-live-url-structure.md).`,
+      );
+    }
+    return found;
   }
 
   async function read(slug: string): Promise<Entry<z.infer<Schema>>> {

@@ -26,8 +26,8 @@ export default function OpengraphImage() {
           </svg>
           {site.name}
         </div>
-        <div style={{ fontSize: 68, fontWeight: 600, lineHeight: 1.1, maxWidth: 960 }}>
-          {site.tagline}
+        <div style={{ fontSize: 56, fontWeight: 600, lineHeight: 1.15, maxWidth: 1000 }}>
+          {site.description}
         </div>
         <div style={{ fontSize: 28, color: "rgb(153,153,153)" }}>{site.tagline}</div>
       </div>

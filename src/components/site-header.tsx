@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { primaryNav } from "@/lib/site";
+import { primaryNav, sectionNav } from "@/lib/site";
 import { ButtonLink } from "./button-link";
 import { Logo } from "./logo";
 
@@ -53,9 +53,9 @@ export function SiteHeader() {
           aria-label="Mobile"
           className="mx-auto mt-2 flex max-w-[1449px] flex-col gap-1 rounded-xl border border-line bg-[rgb(13_13_13/0.9)] p-3 backdrop-blur-[10px] md:hidden"
         >
-          {primaryNav.map((link) => (
+          {[...primaryNav, ...sectionNav].map((link) => (
             <Link
-              key={link.href}
+              key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
               className="rounded-lg px-3 py-2.5 font-medium text-heading hover:bg-white/5"
