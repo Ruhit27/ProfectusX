@@ -22,6 +22,15 @@ describe("Post library", () => {
     expect(post?.body.trim()).toBe("Body of the older Post.");
   });
 
+  it("reads the optional cover and author of a Post", async () => {
+    expect(await posts.get("newer-post")).toMatchObject({
+      cover: "/posts/newer-post.png",
+      author: "Jordan Lee",
+      authorAvatar: "/authors/jordan-lee.png",
+    });
+    expect(await posts.get("older-post")).not.toHaveProperty("cover");
+  });
+
   it("returns null for an unknown slug", async () => {
     expect(await posts.get("does-not-exist")).toBeNull();
   });

@@ -10,10 +10,10 @@ type Status =
   | { state: "failed"; message: string }
   | { state: "sent" };
 
-const fields: { name: ApplicationField; label: string; type: string; autoComplete: string }[] = [
-  { name: "name", label: "Name", type: "text", autoComplete: "name" },
-  { name: "company", label: "Company", type: "text", autoComplete: "organization" },
-  { name: "email", label: "Work email", type: "email", autoComplete: "email" },
+const fields: { name: ApplicationField; label: string; type: string; autoComplete: string; placeholder: string }[] = [
+  { name: "name", label: "Name", type: "text", autoComplete: "name", placeholder: "First Name" },
+  { name: "company", label: "Company", type: "text", autoComplete: "organization", placeholder: "Name" },
+  { name: "email", label: "Email", type: "email", autoComplete: "email", placeholder: "name@company.com" },
 ];
 
 export function ApplicationForm() {
@@ -41,8 +41,8 @@ export function ApplicationForm() {
 
   if (status.state === "sent") {
     return (
-      <div role="status" className="rounded-3xl border border-border bg-surface p-8 text-center">
-        <h2 className="text-2xl font-semibold">Application received</h2>
+      <div role="status" className="w-full max-w-[400px] rounded-3xl border border-line bg-surface p-8 text-center">
+        <h2 className="text-2xl font-medium text-heading">Application received</h2>
         <p className="mt-2 text-muted">Thanks. We review every Application and reply within two business days.</p>
       </div>
     );
@@ -51,12 +51,12 @@ export function ApplicationForm() {
   const errors = status.state === "invalid" ? status.errors : {};
 
   return (
-    <form noValidate onSubmit={onSubmit} className="space-y-5 rounded-3xl border border-border bg-surface p-6 sm:p-8">
+    <form noValidate onSubmit={onSubmit} className="w-full max-w-[400px] space-y-5 rounded-3xl border border-line bg-surface p-6">
       {fields.map((field) => {
         const error = errors[field.name];
         return (
           <div key={field.name} className="space-y-2">
-            <label htmlFor={field.name} className="block text-sm font-medium">
+            <label htmlFor={field.name} className="block text-sm font-medium text-heading">
               {field.label}
             </label>
             <input
@@ -64,9 +64,10 @@ export function ApplicationForm() {
               name={field.name}
               type={field.type}
               autoComplete={field.autoComplete}
+              placeholder={field.placeholder}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? `${field.name}-error` : undefined}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition placeholder:text-muted focus:border-accent aria-invalid:border-red-400"
+              className="w-full rounded-lg border border-transparent bg-[rgb(30,30,30)] px-3 py-2.5 text-sm text-heading outline-none transition placeholder:text-text focus:border-violet aria-invalid:border-red-400"
             />
             {error && (
               <p id={`${field.name}-error`} className="text-sm text-red-400">
@@ -84,7 +85,7 @@ export function ApplicationForm() {
       <button
         type="submit"
         disabled={status.state === "submitting"}
-        className="w-full rounded-full bg-accent px-6 py-3 font-semibold text-accent-ink transition hover:brightness-110 disabled:opacity-60"
+        className="w-full rounded-lg bg-button px-4 py-2.5 text-sm font-bold text-heading transition hover:bg-[rgb(44,46,48)] disabled:opacity-60"
       >
         {status.state === "submitting" ? "Sending…" : "Apply"}
       </button>

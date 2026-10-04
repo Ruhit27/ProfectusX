@@ -1,179 +1,168 @@
-import Link from "next/link";
-import { Avatar } from "@/components/avatar";
-import { ApplyCta } from "@/components/apply-cta";
+import Image from "next/image";
 import { ButtonLink } from "@/components/button-link";
-import { Container } from "@/components/container";
+import { CaseStudyCard } from "@/components/case-study-card";
+import { Icon } from "@/components/icon";
 import { Marquee } from "@/components/marquee";
+import { ProcessTimeline } from "@/components/process-timeline";
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section-heading";
-import { faqs, process, results, services, testimonials, trustedBy, type Testimonial } from "@/data/home";
+import { SectionTitle } from "@/components/section-title";
+import {
+  caseStudiesPreview,
+  closingCta,
+  faq,
+  hero,
+  process,
+  results,
+  testimonials,
+  trustedBy,
+  why,
+  type Testimonial,
+} from "@/data/home";
 import { caseStudies } from "@/lib/content";
 
 export default async function HomePage() {
   const featured = (await caseStudies.list()).slice(0, 3);
-  const half = Math.ceil(testimonials.length / 2);
+  const columns = [0, 1, 2].map((c) => testimonials.items.filter((_, i) => i % 3 === c));
 
   return (
     <>
-      <section id="hero" className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-[480px] max-w-[881px] rounded-full bg-accent/15 blur-3xl"
-        />
-        <Container className="relative py-24 text-center sm:py-32">
+      <section id="hero" className="relative overflow-hidden pb-20 pt-44">
+        <div aria-hidden="true" className="aurora absolute -inset-20" />
+        <div aria-hidden="true" className="grid-glow absolute left-1/2 top-10 h-[420px] w-[700px] -translate-x-1/2" />
+        <div className="relative mx-auto max-w-[1200px] px-4 text-center">
           <Reveal>
-            <p className="mx-auto mb-6 inline-flex rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted">
-              Outbound · LinkedIn · Content
-            </p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mx-auto max-w-[881px] text-4xl font-semibold tracking-tight sm:text-6xl sm:leading-[1.05]">
-              Stop prospecting. Start selling.
+            <h1 className="mx-auto max-w-[711px] text-[32px] font-medium leading-[1.1] tracking-[-0.04em] text-heading sm:text-[40px]">
+              {hero.heading}
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mx-auto mt-6 max-w-[754px] text-lg text-muted">
-              We plan, write and run your outbound, LinkedIn and founder content as one engine, and hand your
-              sales team conversations with buyers who are ready to talk.
+            <p className="mx-auto mt-6 max-w-[560px] text-xl leading-[1.4] tracking-[-0.02em] text-muted">
+              {hero.subheading}
             </p>
           </Reveal>
-          <Reveal delay={0.15} className="mt-10 flex flex-wrap justify-center gap-3">
-            <ApplyCta />
-            <ButtonLink href="/case-studies" variant="secondary">
-              See case studies
-            </ButtonLink>
+          <Reveal delay={0.2} className="mt-10">
+            <ButtonLink href="/quote">{hero.cta}</ButtonLink>
           </Reveal>
-        </Container>
-      </section>
-
-      <section id="logos" aria-label="Trusted by" className="border-y border-border py-10">
-        <p className="mb-6 text-center text-sm text-muted">Trusted by growing B2B teams (sample clients)</p>
-        <Marquee duration={35}>
-          {trustedBy.map((name) => (
-            <span key={name} className="px-8 text-xl font-semibold tracking-tight text-muted/70">
-              {name}
-            </span>
-          ))}
-        </Marquee>
-      </section>
-
-      <section id="results" className="py-24">
-        <Container>
-          <SectionHeading
-            eyebrow="Results"
-            title="Pipeline you can measure"
-            intro="Sample figures for a fictional agency, shown to illustrate the layout."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {results.map((result, i) => (
-              <Reveal key={result.label} delay={i * 0.05} className="rounded-3xl border border-border bg-surface p-6">
-                <p className="text-4xl font-semibold text-accent">{result.value}</p>
-                <p className="mt-2 text-muted">{result.label}</p>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {featured.map((caseStudy, i) => (
-              <Reveal key={caseStudy.slug} delay={i * 0.05}>
-                <Link
-                  href={`/case-studies/${caseStudy.slug}`}
-                  className="flex h-full flex-col rounded-3xl border border-border bg-surface p-6 transition hover:border-accent/50"
-                >
-                  <p className="text-sm text-muted">{caseStudy.industry}</p>
-                  <h3 className="mt-2 text-lg font-semibold">{caseStudy.title}</h3>
-                  <p className="mt-auto pt-6 text-3xl font-semibold text-accent">{caseStudy.metrics[0].value}</p>
-                  <p className="text-sm text-muted">{caseStudy.metrics[0].label}</p>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section id="testimonials" className="py-24">
-        <Container>
-          <SectionHeading eyebrow="Testimonials" title="What clients say" />
-        </Container>
-        <div className="space-y-4">
-          <Marquee duration={60}>
-            {testimonials.slice(0, half).map((testimonial) => (
-              <TestimonialCard key={testimonial.name} {...testimonial} />
-            ))}
-          </Marquee>
-          <Marquee duration={60} reverse>
-            {testimonials.slice(half).map((testimonial) => (
-              <TestimonialCard key={testimonial.name} {...testimonial} />
-            ))}
+        </div>
+        <div id="logos" className="relative mt-14">
+          <p className="mb-8 text-center text-lg text-muted">{trustedBy.label}</p>
+          <Marquee duration={30} className="mx-auto max-w-[1200px]">
+            {trustedBy.logos.map((logo) =>
+              logo.src ? (
+                <Image key={logo.name} src={logo.src} alt={logo.name} width={140} height={40} className="mx-8 h-10 w-auto" />
+              ) : (
+                <span key={logo.name} className="mx-8 font-display text-3xl font-semibold text-white">
+                  {logo.name}
+                </span>
+              ),
+            )}
           </Marquee>
         </div>
       </section>
 
-      <section id="services" className="py-24">
-        <Container>
-          <SectionHeading
-            eyebrow="Services"
-            title="Every channel, pulling in the same direction"
-            intro="We run the whole top of funnel so each channel feeds the others."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, i) => (
-              <Reveal key={service.title} delay={(i % 3) * 0.05} className="rounded-3xl border border-border bg-surface p-6">
-                <h3 className="text-lg font-semibold">{service.title}</h3>
-                <p className="mt-2 text-muted">{service.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
+      <section id="results" className="py-20">
+        <SectionTitle>{results.heading}</SectionTitle>
+        <Marquee duration={45} className="mx-auto max-w-[1200px]">
+          {results.images.map((image) => (
+            <Image
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              width={440}
+              height={300}
+              unoptimized
+              className="h-[300px] w-[440px] rounded-3xl object-cover"
+            />
+          ))}
+        </Marquee>
       </section>
 
-      <section id="process" className="py-24">
-        <Container>
-          <SectionHeading eyebrow="Process" title="From kickoff to booked calls in four steps" />
-          <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {process.map((step, i) => (
-              <Reveal key={step.step} delay={i * 0.05} className="rounded-3xl border border-border bg-surface p-6">
-                <li className="list-none">
-                  <span className="font-mono text-sm text-accent">{step.step}</span>
-                  <h3 className="mt-3 text-lg font-semibold">{step.title}</h3>
-                  <p className="mt-2 text-muted">{step.body}</p>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-        </Container>
+      <section id="testimonials" className="py-20">
+        <SectionTitle>{testimonials.heading}</SectionTitle>
+        <div className="mx-auto grid h-[640px] max-w-[1040px] gap-4 px-4 md:grid-cols-3">
+          {columns.map((column, c) => (
+            <Marquee key={c} vertical duration={35 + c * 8} reverse={c === 1} className={c > 0 ? "hidden md:block" : ""}>
+              {column.map((t) => (
+                <TestimonialCard key={t.name} {...t} />
+              ))}
+            </Marquee>
+          ))}
+        </div>
       </section>
 
-      <section id="faq" className="py-24">
-        <Container className="max-w-[800px]">
-          <SectionHeading eyebrow="FAQ" title="Questions we hear often" />
-          <div className="space-y-3">
-            {faqs.map((faq) => (
-              <details key={faq.question} className="group rounded-2xl border border-border bg-surface p-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium">
-                  {faq.question}
-                  <span aria-hidden="true" className="text-accent transition group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-3 text-muted">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
+      <section id="process" className="px-4 py-20">
+        <SectionTitle>{process.heading}</SectionTitle>
+        <ProcessTimeline steps={process.steps} />
       </section>
 
-      <section className="pb-24">
-        <Container>
-          <Reveal className="rounded-3xl border border-border bg-gradient-to-br from-surface-raised to-surface p-10 text-center sm:p-16">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-[38px]">Ready to hand off prospecting?</h2>
-            <p className="mx-auto mt-4 max-w-[600px] text-lg text-muted">
-              Tell us about your offer and we&apos;ll show you what a Northbound system could look like for your team.
-            </p>
-            <div className="mt-8">
-              <ApplyCta />
+      <section id="why" className="px-4 py-28">
+        <SectionTitle>{why.heading}</SectionTitle>
+        <div className="mx-auto grid max-w-[1000px] gap-12 md:grid-cols-3">
+          {why.features.map((feature, i) => (
+            <Reveal key={feature.title} delay={i * 0.08} className="flex flex-col items-center text-center">
+              <Icon name={feature.icon} />
+              <h3 className="mt-6 text-[30px] font-medium leading-[1.1] tracking-[-0.04em] text-text">{feature.title}</h3>
+              <p className="mt-4 max-w-[270px] text-lg leading-[1.4] tracking-[-0.02em] text-muted">{feature.body}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="case-studies" className="px-4 py-20">
+        <SectionTitle>{caseStudiesPreview.heading}</SectionTitle>
+        <div className="mx-auto max-w-[1040px] space-y-10">
+          {featured.map((caseStudy) => (
+            <Reveal key={caseStudy.slug}>
+              <CaseStudyCard
+                href={`/cs/${caseStudy.slug}`}
+                title={caseStudy.title}
+                summary={caseStudy.summary}
+                linkLabel={caseStudiesPreview.cardLink}
+              />
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <ButtonLink href="/case-studies" variant="secondary">
+            {caseStudiesPreview.allLink}
+          </ButtonLink>
+        </div>
+      </section>
+
+      <section id="faq" className="px-4 py-20">
+        <SectionTitle>{faq.heading}</SectionTitle>
+        <div className="mx-auto max-w-[800px] space-y-4">
+          {faq.items.map((item) => (
+            <details
+              key={item.question}
+              className="group rounded-xl border border-line bg-surface px-5 py-[18px] backdrop-blur-[10px]"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium text-heading">
+                {item.question}
+                <span aria-hidden="true" className="text-2xl leading-none transition group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 text-base leading-[1.4] text-muted">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-4 pb-36 pt-16">
+        <Reveal className="relative mx-auto max-w-[1072px] overflow-hidden rounded-2xl p-10 text-center sm:p-20">
+          <div aria-hidden="true" className="aurora absolute inset-0" />
+          <div aria-hidden="true" className="grid-glow absolute left-1/2 top-0 h-[260px] w-[600px] -translate-x-1/2" />
+          <div className="relative">
+            <h2 className="text-[32px] font-medium leading-[1.1] tracking-[-0.04em] text-[rgb(243,236,254)] sm:text-[42px]">
+              {closingCta.heading}
+            </h2>
+            <p className="mx-auto mt-5 max-w-[640px] text-lg leading-[1.4] text-[rgb(200,196,210)]">{closingCta.body}</p>
+            <div className="mt-10">
+              <ButtonLink href="/quote">{closingCta.cta}</ButtonLink>
             </div>
-          </Reveal>
-        </Container>
+          </div>
+        </Reveal>
       </section>
     </>
   );
@@ -181,14 +170,11 @@ export default async function HomePage() {
 
 function TestimonialCard({ quote, name, role }: Testimonial) {
   return (
-    <figure className="w-[340px] shrink-0 rounded-3xl border border-border bg-surface p-6">
-      <blockquote className="text-foreground/90">&ldquo;{quote}&rdquo;</blockquote>
-      <figcaption className="mt-5 flex items-center gap-3">
-        <Avatar name={name} />
-        <span>
-          <span className="block text-sm font-semibold">{name}</span>
-          <span className="block text-sm text-muted">{role}</span>
-        </span>
+    <figure className="rounded-3xl border border-line bg-surface p-6">
+      <blockquote className="text-lg leading-[1.4] tracking-[-0.02em] text-muted">{quote}</blockquote>
+      <figcaption className="mt-6">
+        <span className="block font-medium text-heading">{name}</span>
+        <span className="block text-sm text-muted">{role}</span>
       </figcaption>
     </figure>
   );

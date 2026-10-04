@@ -2,15 +2,20 @@ export function Marquee({
   children,
   duration = 40,
   reverse = false,
+  vertical = false,
+  className = "",
 }: {
   children: React.ReactNode;
   duration?: number;
   reverse?: boolean;
+  vertical?: boolean;
+  className?: string;
 }) {
+  const axis = vertical ? "flex-col animate-marquee-y" : "w-max animate-marquee-x";
   return (
-    <div className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+    <div className={`group overflow-hidden ${vertical ? "fade-y" : "fade-x"} ${className}`}>
       <div
-        className="flex w-max animate-marquee gap-4 group-hover:[animation-play-state:paused]"
+        className={`flex gap-4 group-hover:[animation-play-state:paused] ${axis}`}
         style={
           {
             "--marquee-duration": `${duration}s`,
@@ -18,8 +23,8 @@ export function Marquee({
           } as React.CSSProperties
         }
       >
-        {children}
-        <div aria-hidden="true" className="flex gap-4">
+        <div className={`flex shrink-0 gap-4 ${vertical ? "flex-col" : ""}`}>{children}</div>
+        <div aria-hidden="true" className={`flex shrink-0 gap-4 ${vertical ? "flex-col" : ""}`}>
           {children}
         </div>
       </div>

@@ -1,11 +1,11 @@
 # Agency Site
 
-A marketing site for a fictional B2B lead-generation agency, built as a learning and portfolio project. It showcases results and converts visitors into applicants.
+The marketing site of a B2B lead-generation agency. It showcases results and converts visitors into applicants.
 
 ## Language
 
 **Agency**:
-Northbound, the fictional lead-generation business the site represents.
+The B2B lead-generation business the site represents.
 _Avoid_: Company, brand, firm
 
 **Prospect**:

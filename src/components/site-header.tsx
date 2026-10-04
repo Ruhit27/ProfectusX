@@ -2,64 +2,72 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { primaryNav, sectionNav } from "@/lib/site";
-import { ApplyCta } from "./apply-cta";
-import { Container } from "./container";
+import { primaryNav } from "@/lib/site";
+import { ButtonLink } from "./button-link";
 import { Logo } from "./logo";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const links = [...primaryNav, ...sectionNav];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <Container className="flex h-16 items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+      <div className="mx-auto flex max-w-[1449px] items-center justify-between rounded-xl border border-line bg-[rgb(13_13_13/0.5)] p-3 backdrop-blur-[10px]">
         <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-6 text-sm text-muted lg:flex">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="transition hover:text-foreground">
+        <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+          {primaryNav.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-lg px-3.5 py-2 text-sm font-medium text-heading transition hover:bg-white/5"
+            >
               {link.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden lg:block">
-          <ApplyCta />
+        <div className="hidden md:block">
+          <ButtonLink href="/quote" variant="glow">
+            Get In Touch
+          </ButtonLink>
         </div>
         <button
           type="button"
-          className="rounded-full border border-border p-2 lg:hidden"
+          className="rounded-lg p-2 text-heading md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((o) => !o)}
         >
-          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-6" aria-hidden="true">
             <path
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
-              d={open ? "M6 6l12 12M18 6 6 18" : "M4 7h16M4 12h16M4 17h16"}
+              d={open ? "M6 6l12 12M18 6 6 18" : "M4 8h16M4 16h16"}
             />
           </svg>
         </button>
-      </Container>
+      </div>
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-border lg:hidden">
-          <Container className="flex flex-col gap-1 py-4">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-2 text-muted hover:bg-surface hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-2" onClick={() => setOpen(false)}>
-              <ApplyCta />
-            </div>
-          </Container>
+        <nav
+          id="mobile-nav"
+          aria-label="Mobile"
+          className="mx-auto mt-2 flex max-w-[1449px] flex-col gap-1 rounded-xl border border-line bg-[rgb(13_13_13/0.9)] p-3 backdrop-blur-[10px] md:hidden"
+        >
+          {primaryNav.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-3 py-2.5 font-medium text-heading hover:bg-white/5"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-1" onClick={() => setOpen(false)}>
+            <ButtonLink href="/quote" variant="glow">
+              Get In Touch
+            </ButtonLink>
+          </div>
         </nav>
       )}
     </header>
