@@ -5,9 +5,9 @@ export type Testimonial = { quote: string; name: string; role: string };
 export type IconName = "search" | "target" | "layers" | "send" | "chart" | "people" | "money" | "gear";
 
 export const hero = {
-  heading: "Placeholder headline about acquisition systems that deliver leads every day",
+  heading: "We Build Predictable Acquisition Systems That Brings You Qualified Leads Consistently",
   subheading:
-    "Placeholder subheading: one or two sentences on how the Agency fills calendars while building the client's brand across channels.",
+    "ProfectusX builds omnichannel lead generation systems that attract qualified prospects, strengthen your digital presence, and create a more consistent flow of sales opportunities.",
   cta: "Button label",
 };
 

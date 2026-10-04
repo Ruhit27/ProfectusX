@@ -1,10 +1,11 @@
 export const site = {
-  name: "Northbound",
+  name: "ProfectusX",
   tagline: "Pipeline studio for B2B teams",
   description:
-    "Northbound plans, writes and runs outbound, LinkedIn and content for B2B sales teams, so reps spend their time with buyers instead of building lists.",
+    "ProfectusX builds omnichannel lead generation systems that attract qualified prospects, strengthen your digital presence, and create a more consistent flow of sales opportunities.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  email: "hello@northbound.example",
+  // Placeholder until the client confirms their contact address.
+  email: "hello@profectusx.example",
   // Footer credit line, right-aligned.
   credit: "Designed by Your Studio",
 };

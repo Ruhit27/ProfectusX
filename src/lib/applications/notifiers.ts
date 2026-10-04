@@ -34,6 +34,6 @@ export function notifierFromEnv(env: NodeJS.ProcessEnv = process.env): Applicati
   return resendNotifier(
     RESEND_API_KEY,
     APPLICATION_INBOX,
-    APPLICATION_FROM ?? "Northbound <onboarding@resend.dev>",
+    APPLICATION_FROM ?? "ProfectusX <onboarding@resend.dev>",
   );
 }
