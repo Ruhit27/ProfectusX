@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Northbound
 
-## Getting Started
+Marketing site for **Northbound**, a fictional B2B lead-generation agency, built as a learning/portfolio project. Its layout and motion patterns are modelled on modern agency landing pages; all copy, branding, clients, figures and testimonials are original sample data.
 
-First, run the development server:
+Domain vocabulary (Application, Case Study, Post, …) is defined in [GLOSSARY.md](GLOSSARY.md).
+
+## Stack
+
+Next.js (App Router) · TypeScript · Tailwind CSS v4 · Motion · MDX (gray-matter + next-mdx-remote) · zod · Resend · Vitest · Playwright
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env.local   # optional
+pnpm dev                     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script | What it does |
+|---|---|
+| `pnpm typecheck` | TypeScript, no emit |
+| `pnpm lint` | ESLint |
+| `pnpm test` | Unit tests (Vitest) |
+| `pnpm test:e2e` | Builds, starts on :3100, runs Playwright (`pnpm exec playwright install chromium` first) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Applications
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`/apply` posts to `POST /api/applications`, which validates the Application and hands it to a notifier:
 
-## Learn More
+- **No env vars set** → the Application is logged to the server console.
+- **`RESEND_API_KEY` + `APPLICATION_INBOX` set** → it is emailed via Resend, with reply-to set to the Prospect. Set `APPLICATION_FROM` to a sender on a domain you've verified in Resend.
 
-To learn more about Next.js, take a look at the following resources:
+`/quote` permanently redirects to `/apply`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Case Studies live in `content/case-studies/*.mdx`, Posts in `content/posts/*.mdx`. The file name is the slug. Frontmatter is validated at build time; an invalid file fails the build with its path in the error.
 
-## Deploy on Vercel
+```yaml
+# Post
+title: …
+summary: …
+date: 2026-05-21
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Case Study: the above, plus
+client: …
+industry: …
+metrics:
+  - value: "112"
+    label: Demos booked in 90 days
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy to Vercel (later)
+
+1. Push the repo to GitHub and import it in Vercel. The framework preset is detected automatically.
+2. Under Project → Settings → Environment Variables, add `NEXT_PUBLIC_SITE_URL` (your production origin) and, if you want email delivery, `RESEND_API_KEY`, `APPLICATION_INBOX` and `APPLICATION_FROM`.
+3. Deploy, then submit a test Application on `/apply` and confirm it arrives.
